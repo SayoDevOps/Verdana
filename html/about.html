@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Story — VERDANA Botanicals</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+
+  <style>
+    /* ============================================
+       ABOUT PAGE — page-specific styles
+       ============================================ */
+
+    .about-hero {
+      height: 70vh;
+      min-height: 500px;
+      position: relative;
+      margin-top: 72px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .about-hero-img {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=1600&q=80') center/cover;
+    }
+
+    .about-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(44, 36, 22, 0.8) 0%,
+        rgba(44, 36, 22, 0.2) 60%,
+        transparent 100%
+      );
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8% 60px;
+    }
+
+    .about-hero-content .section-label {
+      color: var(--sage-light);
+      margin-bottom: 12px;
+    }
+
+    .about-hero-content h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 400;
+      color: white;
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+
+    .about-hero-content h1 em {
+      color: var(--sage-light);
+    }
+
+    /* Body */
+    .about-body {
+      padding: 100px 6%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Intro */
+    .about-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 100px;
+    }
+
+    .about-intro-text .section-title {
+      margin-bottom: 28px;
+    }
+
+    .about-intro-text p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text2);
+      margin-bottom: 18px;
+    }
+
+    .about-intro-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+
+    /* Values */
+    .values-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 100px;
+    }
+
+    .values-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .value-item {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      color: var(--sage);
+    }
+
+    .value-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .value-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--bark);
+      margin-bottom: 12px;
+    }
+
+    .value-desc {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--text2);
+    }
+
+    /* Team */
+    .team-section {
+      margin-bottom: 100px;
+    }
+
+    .team-section .section-title {
+      margin-top: 8px;
+      margin-bottom: 48px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .team-card {
+      text-align: center;
+    }
+
+    .team-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 20px;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter 0.4s;
+    }
+
+    .team-card:hover .team-img {
+      filter: grayscale(0%);
+    }
+
+    .team-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--bark);
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+
+    .team-bio {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--text2);
+    }
+
+    /* CTA */
+    .about-cta {
+      background: var(--parchment);
+      border-radius: 4px;
+      padding: 80px;
+      text-align: center;
+    }
+
+    .about-cta .section-title {
+      margin-bottom: 20px;
+    }
+
+    .about-cta p {
+      color: var(--text2);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.75;
+      font-size: 0.95rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero {
+        height: 60vh;
+        min-height: 400px;
+      }
+      .about-hero-content {
+        padding: 0 5% 40px;
+      }
+      .about-hero-content h1 {
+        font-size: clamp(2.2rem, 8vw, 3.5rem);
+      }
+      .about-body {
+        padding: 60px 5%;
+      }
+      .about-intro {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        margin-bottom: 60px;
+      }
+      .about-intro-img {
+        height: 300px;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+      .value-item {
+        padding: 24px 12px;
+      }
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .team-img {
+        height: 280px;
+      }
+      .about-cta {
+        padding: 48px 20px;
+      }
+      .cta-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="navbar">
+    <a href="../index.html" class="nav-logo">VERD<span>A</span>NA</a>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html" class="active">Our Story</a></li>
+      <li><a href="#">Plant Care</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="nav-cart" onclick="toggleCart()" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="../index.html" onclick="toggleMenu()">Home</a>
+    <a href="shop.html" onclick="toggleMenu()">Shop</a>
+    <a href="about.html" onclick="toggleMenu()">Our Story</a>
+  </div>
+
+  <!-- ============ CART SIDEBAR ============ -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-price" id="cart-total">$0.00</span>
+      </div>
+      <button class="btn btn-sage" style="width:100%; justify-content:center;">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <div class="about-hero">
+    <div class="about-hero-img"></div>
+    <div class="about-hero-overlay"></div>
+    <div class="about-hero-content">
+      <div class="section-label">Est. 2018</div>
+      <h1>Born from a<br><em>love of the rare</em></h1>
+    </div>
+  </div>
+
+  <!-- ============ BODY ============ -->
+  <div class="about-body">
+
+    <!-- Intro -->
+    <div class="about-intro">
+      <div class="about-intro-text reveal">
+        <div class="section-label">Our Origin</div>
+        <h2 class="section-title">Where passion<br>meets <em>botany</em></h2>
+        <p>
+          VERDANA was founded in 2018 by a small group of botanists, travellers,
+          and plant obsessives who believed the world's most extraordinary plants
+          deserved a platform worthy of their beauty.
+        </p>
+        <p>
+          What started as a small collection of rescued specimens has grown into a
+          curated marketplace of over 340 species — each one sourced, inspected,
+          and authenticated by our botanical team before reaching your home.
+        </p>
+        <a href="shop.html" class="btn btn-sage" style="margin-top: 16px;">
+          Explore the Collection
+        </a>
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1200&q=80"
+        alt="Our greenhouse"
+        class="about-intro-img reveal reveal-delay-2"
+      />
+    </div>
+
+    <!-- Values -->
+    <div class="values-section">
+      <div class="values-header reveal">
+        <div class="section-label">What We Stand For</div>
+        <h2 class="section-title">Our <em>values</em></h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-item reveal">
+          <div class="value-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M24 4C14 4 6 12 6 22c0 14 18 26 18 26s18-12 18-26c0-10-8-18-18-18z"/>
+              <circle cx="24" cy="22" r="6"/>
+            </svg>
+          </div>
+          <div class="value-title">Ethical Sourcing</div>
+          <div class="value-desc">
+            Every plant is sourced from certified nurseries operating under CITES
+            guidelines. We never wild-collect.
+          </div>
+        </div>
+        <div class="value-item reveal reveal-delay-1">
+          <div class="value-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M24 8c-4 0-8 4-8 10 0 4 2 7 5 9l3 9 3-9c3-2 5-5 5-9 0-6-4-10-8-10z"/>
+            </svg>
+          </div>
+          <div class="value-title">Plant Health First</div>
+          <div class="value-desc">
+            Our in-house botanists inspect every specimen. Each plant ships with
+            a 30-day health guarantee.
+          </div>
+        </div>
+        <div class="value-item reveal reveal-delay-2">
+          <div class="value-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <circle cx="24" cy="24" r="18"/>
+              <path d="M24 12v12l8 4"/>
+            </svg>
+          </div>
+          <div class="value-title">Lifetime Support</div>
+          <div class="value-desc">
+            Your relationship with us doesn't end at checkout. Our botanists are
+            available for care guidance forever.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="team-section reveal">
+      <div class="section-label">The People</div>
+      <h2 class="section-title">Meet our <em>botanists</em></h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <img
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+            alt="Dr. Amara Chen"
+            class="team-img"
+          />
+          <div class="team-name">Dr. Amara Chen</div>
+          <div class="team-role">Head Botanist</div>
+          <div class="team-bio">
+            PhD in Tropical Botany from Kew Gardens. Spent 6 years researching
+            aroids in Southeast Asia.
+          </div>
+        </div>
+        <div class="team-card">
+          <img
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80"
+            alt="Marcus Osei"
+            class="team-img"
+          />
+          <div class="team-name">Marcus Osei</div>
+          <div class="team-role">Sourcing Director</div>
+          <div class="team-bio">
+            Former conservation officer. Maintains VERDANA's network of certified
+            nurseries across 18 countries.
+          </div>
+        </div>
+        <div class="team-card">
+          <img
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80"
+            alt="Lena Vogt"
+            class="team-img"
+          />
+          <div class="team-name">Lena Vogt</div>
+          <div class="team-role">Plant Care Specialist</div>
+          <div class="team-bio">
+            Horticulturalist and author of "The Indoor Jungle." Writes all our
+            care guides and customer support.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta reveal">
+      <div class="section-label">Ready to Begin?</div>
+      <h2 class="section-title">Find your next<br><em>botanical obsession</em></h2>
+      <p>
+        Browse our full collection of rare, exotic, and extraordinary plants.
+        Each one with a story worth telling.
+      </p>
+      <div class="cta-actions">
+        <a href="shop.html" class="btn btn-sage">Shop All Plants</a>
+        <a href="shop.html?category=rare" class="btn btn-outline">View Rare Specimens</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">VERD<span>A</span>NA</div>
+          <div class="footer-tagline">Rare botanical specimens, ethically sourced and expertly curated.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <a href="shop.html">All Plants</a>
+          <a href="shop.html?category=tropical">Tropicals</a>
+          <a href="shop.html?category=rare">Rare</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">Our Story</a>
+          <a href="#">Sustainability</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Plant Care</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 VERDANA Botanicals.</div>
+        <div class="footer-socials">
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+
+</body>
+</html>

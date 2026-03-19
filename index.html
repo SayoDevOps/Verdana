@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VERDANA — Rare Botanical Marketplace</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <style>
+    /* ============================================
+       INDEX PAGE — page-specific styles
+       ============================================ */
+
+    /* CAROUSEL */
+    .carousel-section {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      margin-top: 72px;
+    }
+
+    .carousel-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+    }
+
+    .carousel-slide.active {
+      display: flex;
+    }
+
+    .carousel-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1);
+      transition: transform 8s linear;
+    }
+
+    .carousel-img.zoom {
+      transform: scale(1.06);
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(247, 244, 239, 0.9) 0%,
+        rgba(247, 244, 239, 0.45) 50%,
+        transparent 100%
+      );
+    }
+
+    .carousel-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8%;
+      max-width: 680px;
+    }
+
+    .carousel-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 16px;
+      animation: fade-up 0.6s 0.2s both;
+    }
+
+    .carousel-content h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 5.5vw, 6rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      color: var(--bark);
+      margin-bottom: 20px;
+      animation: fade-up 0.7s 0.3s both;
+    }
+
+    .carousel-content h1 em {
+      font-style: italic;
+      color: var(--sage-dark);
+    }
+
+    .carousel-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text2);
+      max-width: 440px;
+      margin-bottom: 36px;
+      animation: fade-up 0.7s 0.4s both;
+    }
+
+    .carousel-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fade-up 0.7s 0.5s both;
+    }
+
+    /* Carousel controls */
+    .carousel-controls {
+      position: absolute;
+      bottom: 48px;
+      left: 8%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border2);
+      background: rgba(247, 244, 239, 0.85);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+    }
+
+    .carousel-btn:hover {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: white;
+    }
+
+    .carousel-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+      margin-left: 4px;
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border2);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .carousel-dot.active {
+      background: var(--sage);
+      transform: scale(1.3);
+    }
+
+    .carousel-counter {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text2);
+      letter-spacing: 2px;
+      margin-left: 4px;
+    }
+
+    /* MARQUEE */
+    .marquee-section {
+      overflow: hidden;
+      padding: 18px 0;
+      background: var(--sage);
+      border-top: 1px solid var(--sage-dark);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      padding: 0 32px;
+      white-space: nowrap;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* FEATURED PRODUCTS */
+    .featured-section {
+      padding: 100px 6%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .featured-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .featured-header p {
+      max-width: 340px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text2);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .view-all-wrap {
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    /* CATEGORIES */
+    .categories-section {
+      padding: 80px 6%;
+      background: var(--parchment);
+    }
+
+    .categories-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .categories-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      cursor: pointer;
+      height: 380px;
+      display: block;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+      display: block;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(44, 36, 22, 0.75) 0%, transparent 55%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px 24px;
+    }
+
+    .category-name {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .category-count {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      padding: 70px 6%;
+      background: var(--cream);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--bark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text2);
+    }
+
+    /* EDITORIAL */
+    .editorial-section {
+      padding: 100px 6%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .editorial-img-wrap {
+      position: relative;
+    }
+
+    .editorial-img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .editorial-badge {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      width: 120px;
+      height: 120px;
+      background: var(--sage);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 16px;
+    }
+
+    .editorial-badge-num {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .editorial-badge-text {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .editorial-content {
+      padding-left: 20px;
+    }
+
+    .editorial-content .section-title {
+      margin-bottom: 24px;
+    }
+
+    .editorial-content p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text2);
+      margin-bottom: 18px;
+    }
+
+    .editorial-list {
+      list-style: none;
+      margin: 28px 0;
+    }
+
+    .editorial-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text2);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .editorial-list li::before {
+      content: '✦';
+      color: var(--sage);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* FEATURE STRIP */
+    .feature-strip {
+      padding: 80px 6%;
+      background: var(--bark);
+    }
+
+    .feature-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 20px;
+      color: var(--sage-light);
+    }
+
+    .feature-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .feature-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .feature-desc {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: rgba(247, 244, 239, 0.5);
+    }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      padding: 80px 6%;
+      background: var(--cream2);
+      text-align: center;
+    }
+
+    .newsletter-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .newsletter-inner .section-title {
+      margin-bottom: 16px;
+    }
+
+    .newsletter-inner p {
+      color: var(--text2);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+      line-height: 1.75;
+    }
+
+    .newsletter-form {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 14px 20px;
+      background: white;
+      border: none;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .newsletter-input::placeholder {
+      color: var(--text3);
+    }
+
+    .newsletter-btn {
+      padding: 14px 28px;
+      background: var(--sage);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: background 0.3s;
+    }
+
+    .newsletter-btn:hover {
+      background: var(--sage-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">VERD<span>A</span>NA</a>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="html/shop.html">Shop</a></li>
+      <li><a href="html/about.html">Our Story</a></li>
+      <li><a href="#">Plant Care</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="nav-cart" onclick="toggleCart()" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <a href="html/shop.html" class="btn btn-primary">Shop Now</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="html/shop.html" onclick="toggleMenu()">Shop</a>
+    <a href="html/about.html" onclick="toggleMenu()">Our Story</a>
+    <a href="#" onclick="toggleMenu()">Plant Care</a>
+  </div>
+
+  <!-- ============ CART SIDEBAR ============ -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-price" id="cart-total">$0.00</span>
+      </div>
+      <button class="btn btn-sage" style="width:100%; justify-content:center;">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ HERO CAROUSEL ============ -->
+  <section class="carousel-section">
+    <div class="carousel-track" id="carousel-track">
+
+      <!-- Slide 1 -->
+      <div class="carousel-slide active">
+        <div class="carousel-img" style="background-image: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1600&q=80')"></div>
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content">
+          <div class="carousel-eyebrow">✦ New Arrivals — Spring 2026</div>
+          <h1>Rare plants,<br><em>carefully sourced</em></h1>
+          <p class="carousel-desc">
+            Each specimen is ethically sourced from certified botanical nurseries
+            across 18 countries — curated for the discerning plant lover.
+          </p>
+          <div class="carousel-actions">
+            <a href="html/shop.html" class="btn btn-primary">Explore Collection</a>
+            <a href="html/about.html" class="btn btn-outline">Our Story</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-slide">
+        <div class="carousel-img" style="background-image: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80')"></div>
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content">
+          <div class="carousel-eyebrow">✦ Editor's Selection</div>
+          <h1>Tropical<br><em>specimens</em></h1>
+          <p class="carousel-desc">
+            Extraordinary tropicals that transform living spaces into immersive
+            botanical sanctuaries. Limited stock, exceptional quality.
+          </p>
+          <div class="carousel-actions">
+            <a href="html/shop.html?category=tropical" class="btn btn-primary">View Tropicals</a>
+            <a href="html/shop.html" class="btn btn-outline">All Plants</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-slide">
+        <div class="carousel-img" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')"></div>
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content">
+          <div class="carousel-eyebrow">✦ Collectors' Corner</div>
+          <h1>Exotic <em>rarities</em><br>for collectors</h1>
+          <p class="carousel-desc">
+            Botanically significant specimens, variegated cultivars, and rare finds —
+            available for passionate collectors worldwide.
+          </p>
+          <div class="carousel-actions">
+            <a href="html/shop.html?category=rare" class="btn btn-primary">View Rare Plants</a>
+            <a href="html/shop.html" class="btn btn-outline">Shop All</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Carousel dots centered -->
+    <div class="carousel-controls" style="left:50%; transform:translateX(-50%); justify-content:center;">
+      <div class="carousel-dots">
+        <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+        <button class="carousel-dot" onclick="goToSlide(1)"></button>
+        <button class="carousel-dot" onclick="goToSlide(2)"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item">
+        Rare Tropicals <span class="marquee-dot"></span>
+        Ethically Sourced <span class="marquee-dot"></span>
+        Expert Care Guides <span class="marquee-dot"></span>
+        Global Delivery <span class="marquee-dot"></span>
+        Botanical Curation <span class="marquee-dot"></span>
+        Living Art <span class="marquee-dot"></span>
+      </div>
+      <div class="marquee-item" aria-hidden="true">
+        Rare Tropicals <span class="marquee-dot"></span>
+        Ethically Sourced <span class="marquee-dot"></span>
+        Expert Care Guides <span class="marquee-dot"></span>
+        Global Delivery <span class="marquee-dot"></span>
+        Botanical Curation <span class="marquee-dot"></span>
+        Living Art <span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FEATURED PRODUCTS ============ -->
+  <section class="featured-section">
+    <div class="featured-header reveal">
+      <div>
+        <div class="section-label">Curated Selection</div>
+        <h2 class="section-title">Featured <em>plants</em></h2>
+      </div>
+      <p>
+        Each plant is inspected, potted, and prepared by our in-house botanists
+        before it reaches your door.
+      </p>
+    </div>
+
+    <div class="products-grid" id="featured-grid"></div>
+
+    <div class="view-all-wrap reveal">
+      <a href="html/shop.html" class="btn btn-outline" style="padding: 14px 40px;">
+        View All Plants →
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section class="categories-section">
+    <div class="categories-inner">
+      <div class="categories-header reveal">
+        <div class="section-label">Browse By Type</div>
+        <h2 class="section-title">Shop by <em>category</em></h2>
+      </div>
+      <div class="categories-grid">
+        <a href="html/shop.html?category=tropical" class="category-card reveal">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Tropical Plants" />
+          <div class="category-overlay">
+            <div class="category-name">Tropicals</div>
+            <div class="category-count">24 plants</div>
+          </div>
+        </a>
+        <a href="html/shop.html?category=rare" class="category-card reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=800&q=80" alt="Rare Specimens" />
+          <div class="category-overlay">
+            <div class="category-name">Rare Specimens</div>
+            <div class="category-count">12 plants</div>
+          </div>
+        </a>
+        <a href="html/shop.html?category=succulents" class="category-card reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1446071103084-c257b5f70672?w=800&q=80" alt="Succulents" />
+          <div class="category-overlay">
+            <div class="category-name">Succulents</div>
+            <div class="category-count">18 plants</div>
+          </div>
+        </a>
+        <a href="html/shop.html?category=indoor" class="category-card reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Indoor Plants" />
+          <div class="category-overlay">
+            <div class="category-name">Indoor</div>
+            <div class="category-count">31 plants</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <div class="stats-bar">
+    <div class="stat-item reveal">
+      <div class="stat-num">340+</div>
+      <div class="stat-label">Plant Species</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Countries Sourced</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num">12K+</div>
+      <div class="stat-label">Happy Collectors</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Survival Rate</div>
+    </div>
+  </div>
+
+  <!-- ============ EDITORIAL ============ -->
+  <section class="editorial-section">
+    <div class="editorial-grid">
+      <div class="editorial-img-wrap reveal">
+        <img
+          src="https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=1200&q=80"
+          alt="Our botanical process"
+          class="editorial-img"
+        />
+        <div class="editorial-badge">
+          <div class="editorial-badge-num">8</div>
+          <div class="editorial-badge-text">Years of Expertise</div>
+        </div>
+      </div>
+      <div class="editorial-content reveal reveal-delay-2">
+        <div class="section-label">Our Philosophy</div>
+        <h2 class="section-title">Plants are<br><em>living art</em></h2>
+        <p>
+          At VERDANA, we believe every plant tells a story. From the cloud forests of
+          Ecuador to the highlands of Thailand, we travel the world to bring you
+          specimens that cannot be found elsewhere.
+        </p>
+        <p>
+          Our botanists personally inspect every plant before it joins our collection.
+          Each one ships with a care card, a botanical history, and a 30-day health
+          guarantee.
+        </p>
+        <ul class="editorial-list">
+          <li>Ethically sourced from certified nurseries</li>
+          <li>Expert packaging for safe delivery</li>
+          <li>30-day health guarantee on every plant</li>
+          <li>Lifetime care support from our botanists</li>
+        </ul>
+        <a href="html/about.html" class="btn btn-sage" style="margin-top: 8px;">
+          Read Our Story
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE STRIP ============ -->
+  <div class="feature-strip">
+    <div class="feature-strip-inner">
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M20 4C12 4 6 10 6 18c0 10 14 22 14 22s14-12 14-22c0-8-6-14-14-14z"/>
+            <circle cx="20" cy="18" r="4"/>
+          </svg>
+        </div>
+        <div class="feature-title">Global Sourcing</div>
+        <div class="feature-desc">
+          Botanicals sourced directly from specialist nurseries across 18 countries,
+          ensuring quality and rarity you won't find elsewhere.
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="8" y="14" width="24" height="20" rx="2"/>
+            <path d="M14 14v-4a6 6 0 0 1 12 0v4"/>
+            <circle cx="20" cy="24" r="2.5"/>
+          </svg>
+        </div>
+        <div class="feature-title">Safe Delivery</div>
+        <div class="feature-desc">
+          Specialist plant packaging developed by horticulturalists. Every plant
+          arrives alive, healthy, and beautifully presented.
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M20 6c-4 0-8 4-8 10 0 4 2 7 5 9l3 9 3-9c3-2 5-5 5-9 0-6-4-10-8-10z"/>
+          </svg>
+        </div>
+        <div class="feature-title">Expert Care</div>
+        <div class="feature-desc">
+          Every purchase includes a personalised care guide and access to our
+          botanist support team for life.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner reveal">
+      <div class="section-label">Stay Connected</div>
+      <h2 class="section-title">Join our <em>botanical</em> circle</h2>
+      <p>New arrivals, care guides, and rare finds delivered to your inbox. No spam — just plants.</p>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="your@email.com" />
+        <button class="newsletter-btn">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">VERD<span>A</span>NA</div>
+          <div class="footer-tagline">
+            Rare botanical specimens, ethically sourced and expertly curated
+            for discerning plant collectors worldwide.
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <a href="html/shop.html">All Plants</a>
+          <a href="html/shop.html?category=tropical">Tropicals</a>
+          <a href="html/shop.html?category=rare">Rare Specimens</a>
+          <a href="html/shop.html?category=succulents">Succulents</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="html/about.html">Our Story</a>
+          <a href="#">Sustainability</a>
+          <a href="#">Press</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Plant Care</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 VERDANA Botanicals. All rights reserved.</div>
+        <div class="footer-socials">
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="#">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="js/main.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // Render featured products
+    document.addEventListener('DOMContentLoaded', function() {
+      var grid = document.getElementById('featured-grid');
+      if (grid && window.PRODUCTS) {
+        var featured = window.PRODUCTS.slice(0, 4);
+        grid.innerHTML = featured.map(function(p) {
+          return renderProductCard(p);
+        }).join('');
+      }
+    });
+  </script>
+
+</body>
+</html>

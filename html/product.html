@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product — VERDANA Botanicals</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+
+  <style>
+    /* ============================================
+       PRODUCT PAGE — page-specific styles
+       ============================================ */
+
+    .product-page {
+      padding: 120px 6% 80px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 48px;
+    }
+
+    .breadcrumb a {
+      color: var(--text3);
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--sage);
+    }
+
+    .breadcrumb-sep {
+      color: var(--border2);
+    }
+
+    /* Product layout */
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 100px;
+    }
+
+    /* Gallery */
+    .product-gallery {
+      position: sticky;
+      top: 100px;
+    }
+
+    .product-main-img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .product-thumbs {
+      display: flex;
+      gap: 10px;
+    }
+
+    .product-thumb {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 2px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      display: block;
+    }
+
+    .product-thumb.active {
+      border-color: var(--sage);
+    }
+
+    /* Product info */
+    .product-info {
+      padding-top: 8px;
+    }
+
+    .product-info .product-tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      background: var(--sage);
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 99px;
+    }
+
+    .product-info .product-tag.rare {
+      background: var(--earth);
+    }
+
+    .product-info h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      color: var(--bark);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .product-scientific-name {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text3);
+      font-style: italic;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .rating-row .stars {
+      color: var(--earth);
+      font-size: 1rem;
+    }
+
+    .rating-row .review-count {
+      font-size: 0.82rem;
+      color: var(--text2);
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .price-main {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--sage-dark);
+    }
+
+    .price-note {
+      font-size: 0.78rem;
+      color: var(--text3);
+    }
+
+    .product-desc {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--text2);
+      margin-bottom: 28px;
+    }
+
+    /* Care grid */
+    .care-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .care-item {
+      background: var(--cream2);
+      border-radius: var(--radius);
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .care-icon {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .care-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 3px;
+    }
+
+    .care-val {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--bark);
+    }
+
+    /* Quantity */
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 8px 16px;
+    }
+
+    .qty-control button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text);
+      padding: 0 4px;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .qty-control button:hover {
+      color: var(--sage);
+    }
+
+    .qty-control span {
+      font-size: 0.95rem;
+      min-width: 24px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .stock-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      color: var(--sage-dark);
+      background: var(--sage-dim);
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    .add-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 16px;
+      font-size: 0.85rem;
+    }
+
+    .guarantee {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: var(--text2);
+    }
+
+    .guarantee svg {
+      width: 18px;
+      height: 18px;
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+
+    /* Related */
+    .related-section {
+      padding-top: 60px;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-section .section-title {
+      margin-top: 8px;
+      margin-bottom: 40px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .product-page {
+        padding: 100px 5% 60px;
+      }
+      .product-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .product-gallery {
+        position: static;
+      }
+      .product-main-img {
+        height: 340px;
+      }
+      .product-thumbs {
+        gap: 8px;
+      }
+      .product-thumb {
+        width: 64px;
+        height: 64px;
+      }
+      .product-info h1 {
+        font-size: 2rem;
+      }
+      .care-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .related-section {
+        padding-top: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-main-img {
+        height: 280px;
+      }
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="navbar">
+    <a href="../index.html" class="nav-logo">VERD<span>A</span>NA</a>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">Our Story</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="nav-cart" onclick="toggleCart()" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="../index.html" onclick="toggleMenu()">Home</a>
+    <a href="shop.html" onclick="toggleMenu()">Shop</a>
+    <a href="about.html" onclick="toggleMenu()">Our Story</a>
+  </div>
+
+  <!-- ============ CART SIDEBAR ============ -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-price" id="cart-total">$0.00</span>
+      </div>
+      <button class="btn btn-sage" style="width:100%; justify-content:center;">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ PRODUCT CONTENT ============ -->
+  <div class="product-page" id="product-page">
+    <!-- Rendered by JS below -->
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">VERD<span>A</span>NA</div>
+          <div class="footer-tagline">Rare botanical specimens, ethically sourced.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <a href="shop.html">All Plants</a>
+          <a href="shop.html?category=rare">Rare</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">Our Story</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 VERDANA Botanicals.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    var qty = 1;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var params  = new URLSearchParams(window.location.search);
+      var id      = parseInt(params.get('id')) || 1;
+      var product = window.PRODUCTS.find(function(p) { return p.id === id; });
+
+      if (!product) {
+        document.getElementById('product-page').innerHTML =
+          '<p style="text-align:center; padding:80px; color:var(--text2);">Product not found.</p>';
+        return;
+      }
+
+      document.title = product.name + ' — VERDANA';
+
+      var stars   = '★'.repeat(Math.floor(product.rating));
+      var related = window.PRODUCTS.filter(function(p) {
+        return p.id !== id && p.category === product.category;
+      }).slice(0, 4);
+
+      var tagHtml = product.tag
+        ? '<span class="product-tag ' + (product.tag === 'Rare' ? 'rare' : '') + '">' + product.tag + '</span>'
+        : '';
+
+      var relatedHtml = related.length
+        ? '<div class="related-section">' +
+            '<div class="section-label">More Like This</div>' +
+            '<h2 class="section-title">You might also <em>love</em></h2>' +
+            '<div class="related-grid">' +
+              related.map(function(p) { return renderProductCard(p); }).join('') +
+            '</div>' +
+          '</div>'
+        : '';
+
+      document.getElementById('product-page').innerHTML = `
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="breadcrumb-sep">/</span>
+          <a href="shop.html">Shop</a>
+          <span class="breadcrumb-sep">/</span>
+          <span>${product.name}</span>
+        </div>
+
+        <div class="product-detail-grid">
+
+          <div class="product-gallery">
+            <img
+              src="${product.img}"
+              alt="${product.name}"
+              class="product-main-img"
+              id="main-img"
+            />
+            <div class="product-thumbs">
+              <img src="${product.img}" class="product-thumb active" onclick="switchImg(this, '${product.img}')" alt="View 1" />
+              <img src="${product.img}" class="product-thumb" onclick="switchImg(this, '${product.img}')" alt="View 2" />
+              <img src="${product.img}" class="product-thumb" onclick="switchImg(this, '${product.img}')" alt="View 3" />
+            </div>
+          </div>
+
+          <div class="product-info">
+            ${tagHtml}
+            <h1>${product.name}</h1>
+            <div class="product-scientific-name">${product.scientific}</div>
+
+            <div class="rating-row">
+              <span class="stars">${stars}</span>
+              <span class="review-count">${product.rating} · ${product.reviews} reviews</span>
+            </div>
+
+            <div class="price-row">
+              <span class="price-main">$${product.price}</span>
+              <span class="price-note">Free shipping over $150</span>
+            </div>
+
+            <p class="product-desc">${product.desc}</p>
+
+            <div class="care-grid">
+              <div class="care-item">
+                <div class="care-icon">☀️</div>
+                <div class="care-label">Light</div>
+                <div class="care-val">Bright Indirect</div>
+              </div>
+              <div class="care-item">
+                <div class="care-icon">💧</div>
+                <div class="care-label">Water</div>
+                <div class="care-val">Weekly</div>
+              </div>
+              <div class="care-item">
+                <div class="care-icon">🌡️</div>
+                <div class="care-label">Temp</div>
+                <div class="care-val">18–28°C</div>
+              </div>
+            </div>
+
+            <div class="qty-row">
+              <div class="qty-control">
+                <button onclick="changeQty(-1)">−</button>
+                <span id="qty-display">1</span>
+                <button onclick="changeQty(1)">+</button>
+              </div>
+              <span class="stock-badge">Only ${product.stock} left</span>
+            </div>
+
+            <button class="btn btn-sage add-btn" onclick="addToCart(${product.id})">
+              Add to Cart
+            </button>
+
+            <div class="guarantee">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              30-day health guarantee on all plants
+            </div>
+          </div>
+
+        </div>
+
+        ${relatedHtml}
+      `;
+
+      // Force reveal on related cards
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        el.classList.add('visible');
+      });
+    });
+
+    function switchImg(thumb, src) {
+      document.getElementById('main-img').src = src;
+      document.querySelectorAll('.product-thumb').forEach(function(t) {
+        t.classList.remove('active');
+      });
+      thumb.classList.add('active');
+    }
+
+    function changeQty(delta) {
+      qty = Math.max(1, qty + delta);
+      document.getElementById('qty-display').textContent = qty;
+    }
+  </script>
+
+</body>
+</html>

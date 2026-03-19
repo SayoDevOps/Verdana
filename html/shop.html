@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — VERDANA Botanicals</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets — go up one level since this file is in html/ -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+
+  <style>
+    /* ============================================
+       SHOP PAGE — page-specific styles
+       ============================================ */
+
+    .page-hero {
+      padding: 140px 6% 60px;
+      background: var(--cream2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      color: var(--bark);
+      letter-spacing: -0.5px;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--sage-dark);
+    }
+
+    .shop-section {
+      padding: 60px 6%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .shop-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 20px;
+      border: 1px solid var(--border2);
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: none;
+      color: var(--text2);
+      transition: all 0.3s;
+      font-family: var(--font-sans);
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: white;
+    }
+
+    .shop-toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .shop-count {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      letter-spacing: 2px;
+    }
+
+    .sort-select {
+      padding: 8px 16px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      background: none;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--text);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .no-products {
+      text-align: center;
+      padding: 80px;
+      color: var(--text2);
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .shop-section {
+        padding: 40px 5%;
+      }
+      .shop-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .filter-tabs {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .filter-tab {
+        padding: 6px 14px;
+        font-size: 0.72rem;
+      }
+      .page-hero {
+        padding: 110px 5% 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="navbar">
+    <a href="../index.html" class="nav-logo">VERD<span>A</span>NA</a>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="#">Plant Care</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="nav-cart" onclick="toggleCart()" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="../index.html" onclick="toggleMenu()">Home</a>
+    <a href="shop.html" onclick="toggleMenu()">Shop</a>
+    <a href="about.html" onclick="toggleMenu()">Our Story</a>
+  </div>
+
+  <!-- ============ CART SIDEBAR ============ -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-price" id="cart-total">$0.00</span>
+      </div>
+      <button class="btn btn-sage" style="width:100%; justify-content:center;">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ PAGE HERO ============ -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="section-label">The Collection</div>
+      <h1>All <em>plants</em></h1>
+    </div>
+  </div>
+
+  <!-- ============ SHOP CONTENT ============ -->
+  <section class="shop-section">
+    <div class="shop-toolbar">
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterProducts('all', this)">All</button>
+        <button class="filter-tab" onclick="filterProducts('tropical', this)">Tropical</button>
+        <button class="filter-tab" onclick="filterProducts('rare', this)">Rare</button>
+        <button class="filter-tab" onclick="filterProducts('succulents', this)">Succulents</button>
+        <button class="filter-tab" onclick="filterProducts('indoor', this)">Indoor</button>
+      </div>
+      <div class="shop-toolbar-right">
+        <span class="shop-count" id="shop-count">8 plants</span>
+        <select class="sort-select" onchange="sortProducts(this.value)">
+          <option value="default">Sort: Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="products-grid" id="shop-grid"></div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">VERD<span>A</span>NA</div>
+          <div class="footer-tagline">Rare botanical specimens, ethically sourced.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <a href="shop.html">All Plants</a>
+          <a href="shop.html?category=tropical">Tropicals</a>
+          <a href="shop.html?category=rare">Rare</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">Our Story</a>
+          <a href="#">Sustainability</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Plant Care</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 VERDANA Botanicals.</div>
+        <div class="footer-socials">
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    var currentFilter = 'all';
+    var currentSort   = 'default';
+
+    function filterProducts(cat, btn) {
+      currentFilter = cat;
+      document.querySelectorAll('.filter-tab').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      renderShop();
+    }
+
+    function sortProducts(val) {
+      currentSort = val;
+      renderShop();
+    }
+
+    function renderShop() {
+      var products = window.PRODUCTS.slice();
+
+      if (currentFilter !== 'all') {
+        products = products.filter(function(p) { return p.category === currentFilter; });
+      }
+
+      if (currentSort === 'price-low')  products.sort(function(a, b) { return a.price - b.price; });
+      if (currentSort === 'price-high') products.sort(function(a, b) { return b.price - a.price; });
+      if (currentSort === 'rating')     products.sort(function(a, b) { return b.rating - a.rating; });
+
+      var countEl = document.getElementById('shop-count');
+      if (countEl) {
+        countEl.textContent = products.length + ' plant' + (products.length !== 1 ? 's' : '');
+      }
+
+      var grid = document.getElementById('shop-grid');
+      if (grid) {
+        if (products.length) {
+          grid.innerHTML = products.map(function(p) { return renderProductCard(p); }).join('');
+        } else {
+          grid.innerHTML = '<div class="no-products">No plants found in this category</div>';
+        }
+        // Force reveal visible
+        grid.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for category in URL
+      var params  = new URLSearchParams(window.location.search);
+      var cat     = params.get('category');
+      if (cat) {
+        currentFilter = cat;
+        document.querySelectorAll('.filter-tab').forEach(function(btn) {
+          if (btn.textContent.toLowerCase() === cat) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+      renderShop();
+    });
+  </script>
+
+</body>
+</html>
