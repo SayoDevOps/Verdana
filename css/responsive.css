@@ -163,10 +163,11 @@
 
   /* Stats */
   .stats-bar {
-    flex-wrap: wrap;
-    gap: 32px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
     padding: 50px 5%;
-    justify-content: center;
+    justify-items: center;
   }
 
   .stat-num {
@@ -184,7 +185,10 @@
   }
 
   .editorial-img {
-    height: 360px;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center 20%;
   }
 
   .editorial-content {

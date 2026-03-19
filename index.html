@@ -122,12 +122,14 @@
     /* Carousel controls */
     .carousel-controls {
       position: absolute;
-      bottom: 48px;
-      left: 8%;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       display: flex;
       align-items: center;
       gap: 14px;
+      justify-content: center;
     }
 
     .carousel-btn {
@@ -553,6 +555,425 @@
     .newsletter-btn:hover {
       background: var(--sage-dark);
     }
+
+    /* ============================================
+       INDEX — Mobile overrides
+       ============================================ */
+
+    @media (max-width: 768px) {
+
+      /* Hero */
+      .carousel-section {
+        height: 100svh;
+        margin-bottom: 0;
+      }
+
+      .carousel-overlay {
+        background: linear-gradient(
+          to right,
+          rgba(247, 244, 239, 0.96) 0%,
+          rgba(247, 244, 239, 0.75) 60%,
+          rgba(247, 244, 239, 0.2) 100%
+        );
+      }
+
+      .carousel-content {
+        padding: 0 5%;
+        max-width: 100%;
+      }
+
+      .carousel-content h1 {
+        font-size: 2.4rem;
+        letter-spacing: -0.5px;
+      }
+
+      .carousel-desc {
+        font-size: 0.88rem;
+      }
+
+      .carousel-actions {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      /* Featured products — 2 columns */
+      .featured-section {
+        padding: 60px 5%;
+      }
+
+      .featured-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .featured-header p {
+        max-width: 100%;
+        font-size: 0.88rem;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px;
+      }
+
+      .product-img-wrap img {
+        height: 200px;
+      }
+
+      .product-name {
+        font-size: 0.9rem;
+      }
+
+      .product-scientific {
+        display: none;
+      }
+
+      .product-price {
+        font-size: 0.9rem;
+      }
+
+      .product-rating {
+        font-size: 0.62rem;
+      }
+
+      /* Categories — 2 columns */
+      .categories-section {
+        padding: 60px 5%;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+      }
+
+      .category-card {
+        height: 200px;
+      }
+
+      .category-name {
+        font-size: 1.1rem;
+      }
+
+      .category-count {
+        font-size: 0.6rem;
+      }
+
+      /* Stats — 2x2 tight grid */
+      .stats-bar {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 16px;
+        padding: 48px 5%;
+        justify-items: center;
+      }
+
+      .stat-num {
+        font-size: 2.2rem;
+      }
+
+      .stat-label {
+        font-size: 0.6rem;
+      }
+
+      /* Editorial — stack vertically */
+      .editorial-section {
+        padding: 60px 5%;
+      }
+
+      .editorial-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px;
+      }
+
+      .editorial-img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .editorial-badge {
+        display: none;
+      }
+
+      .editorial-content {
+        padding-left: 0;
+      }
+
+      /* Feature strip — stack */
+      .feature-strip {
+        padding: 60px 5%;
+      }
+
+      .feature-strip-inner {
+        grid-template-columns: 1fr !important;
+        gap: 36px;
+      }
+
+      /* Newsletter */
+      .newsletter-section {
+        padding: 60px 5%;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        border: none;
+        gap: 10px;
+      }
+
+      .newsletter-input {
+        border: 1px solid var(--border2);
+        border-radius: 4px;
+        padding: 13px 18px;
+      }
+
+      .newsletter-btn {
+        border-radius: 4px;
+        padding: 13px 24px;
+        width: 100%;
+      }
+
+      /* Footer */
+      .footer-top {
+        grid-template-columns: 1fr !important;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .carousel-content h1 {
+        font-size: 2rem;
+      }
+      .products-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .categories-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .category-card {
+        height: 180px;
+      }
+    }
+
+
+    /* ── MOBILE FIXES FOR INDEX ── */
+    @media (max-width: 768px) {
+
+      /* Hero */
+      .carousel-section {
+        height: 100svh;
+        min-height: 500px;
+        margin-top: 60px;
+        margin-bottom: 0;
+      }
+
+      .carousel-content h1 {
+        font-size: 2.4rem;
+        letter-spacing: -0.5px;
+      }
+
+      .carousel-desc {
+        font-size: 0.88rem;
+      }
+
+      .carousel-actions {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .carousel-overlay {
+        background: linear-gradient(
+          105deg,
+          rgba(247,244,239,0.96) 0%,
+          rgba(247,244,239,0.75) 55%,
+          rgba(247,244,239,0.15) 100%
+        );
+      }
+
+      /* Featured */
+      .featured-section {
+        padding: 50px 4%;
+      }
+
+      .featured-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .featured-header p {
+        font-size: 0.88rem;
+        max-width: 100%;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .product-img-wrap img {
+        height: 180px;
+      }
+
+      .product-name {
+        font-size: 0.9rem;
+      }
+
+      .product-scientific {
+        display: none;
+      }
+
+      .product-price {
+        font-size: 0.9rem;
+      }
+
+      .product-rating {
+        font-size: 0.62rem;
+      }
+
+      /* Categories */
+      .categories-section {
+        padding: 50px 4%;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .category-card {
+        height: 200px;
+      }
+
+      .category-name {
+        font-size: 1.1rem;
+      }
+
+      .category-count {
+        font-size: 0.6rem;
+      }
+
+      .category-overlay {
+        padding: 16px;
+      }
+
+      /* Stats */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px 16px;
+        padding: 50px 4%;
+        justify-items: center;
+      }
+
+      .stat-num {
+        font-size: 2.2rem;
+      }
+
+      .stat-label {
+        font-size: 0.6rem;
+      }
+
+      /* Editorial */
+      .editorial-section {
+        padding: 50px 4%;
+      }
+
+      .editorial-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .editorial-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .editorial-badge {
+        display: none;
+      }
+
+      .editorial-content {
+        padding-left: 0;
+      }
+
+      /* Feature strip */
+      .feature-strip {
+        padding: 50px 4%;
+      }
+
+      .feature-strip-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      /* Newsletter */
+      .newsletter-section {
+        padding: 50px 4%;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        border: none;
+        gap: 10px;
+      }
+
+      .newsletter-input {
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        padding: 13px 18px;
+      }
+
+      .newsletter-btn {
+        border-radius: var(--radius);
+        padding: 13px 24px;
+        width: 100%;
+      }
+
+      /* Footer */
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
+      footer {
+        padding: 60px 4% 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-img-wrap img {
+        height: 260px;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-card {
+        height: 220px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -798,7 +1219,7 @@
     <div class="editorial-grid">
       <div class="editorial-img-wrap reveal">
         <img
-          src="https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=1200&q=80"
+          src="https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=1200&q=80"
           alt="Our botanical process"
           class="editorial-img"
         />
